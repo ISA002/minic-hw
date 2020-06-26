@@ -34,7 +34,7 @@ const SymbolTable::TableRecord &SymbolTable::operator[](const int index) const {
 
 
 std::shared_ptr <MemoryOperand> SymbolTable::alloc(Scope scope) {
-    return this->addVar("[temp]" + std::to_string(_records.size()), scope,
+    return this->addVar("[tmp" + std::to_string(_records.size()) + "]", scope,
                         SymbolTable::TableRecord::RecordType::integer);
 }
 
@@ -141,7 +141,8 @@ std::shared_ptr <MemoryOperand> SymbolTable::checkFunc(const std::string &name,
 void SymbolTable::printST() {
     std::vector<SymbolTable::TableRecord>::iterator iter = _records.begin();
     int n = 0;
-    std::cout << "----------------SYMBOL TABLE----------------" << std::endl;
+    std::cout << "SYMBOL TABLE\n----------------" << std::endl;
+    std::cout << "code\tname\tkind\ttype\tlen\tinit\tscope\toffset\n";
     while (iter != _records.end()) {
         std::string kind = "unknown";
         if (iter->_kind == SymbolTable::TableRecord::RecordKind::var) {
@@ -152,14 +153,14 @@ void SymbolTable::printST() {
         }
         std::string type = "unknown";
         if (iter->_type == SymbolTable::TableRecord::RecordType::integer) {
-            type = "integer";
+            type = "int";
         }
         if (iter->_type == SymbolTable::TableRecord::RecordType::chr) {
             type = "chr";
         }
         std::string tmp =
-                std::to_string(n) + " " + iter->_name + " " + kind + " " + type + " " + std::to_string(iter->_len) +
-                " " + std::to_string(iter->_init) + " " + std::to_string(iter->_scope) + " " +
+                std::to_string(n) + "\t" + iter->_name + "\t" + kind + "\t" + type + "\t" + std::to_string(iter->_len) +
+            "\t" + std::to_string(iter->_init) + "\t" + std::to_string(iter->_scope) + "\t" +
                 std::to_string(iter->_offset);
         std::cout << tmp << std::endl;
         n++;

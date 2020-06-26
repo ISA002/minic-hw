@@ -24,9 +24,9 @@ const std::string &StringTable::operator[](const int index) const {
 
 std::ostream &operator<<(std::ostream &os, const StringTable st) {
     int n = 0;
-    os << "----------------STRING TABLE----------------" << std::endl;
+    os << "STRING TABLE\n----------------" << std::endl;
     while (st[n] != "error") {
-        os << n << " " << st[n] << std::endl;
+        os << n << "\t" << st[n] << std::endl;
         n++;
     }
     return os;

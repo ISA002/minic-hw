@@ -6,12 +6,13 @@ Translator::Translator(std::istream &stream) : _scanner(stream) {};
 void Translator::printAtoms(std::ostream &stream) {
     std::map < Scope, std::vector < std::shared_ptr < Atom >> > ::iterator
     it = _atoms.begin();
+    std::cout << "SYNTAX OK\n";
     while (it != _atoms.end()) {
         std::vector < std::shared_ptr < Atom >> ::iterator
         iter = it->second.begin();
         int n = 0;
         while (iter != it->second.end()) {
-            stream << it->first << " " << it->second[n]->toString() << std::endl;
+            stream << it->first << "\t" << it->second[n]->toString() << std::endl;
             n++;
             ++iter;
         }
